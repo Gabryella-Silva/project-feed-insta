@@ -116,11 +116,15 @@ body{
   
   display: flex;
   justify-content: space-between;
+  font-size: 24px;
+    cursor: pointer;
+  
 }
 
 .post-icons > div{
   display: flex;
   gap: 10px;
+  
 }
 
 .post-likes{
@@ -139,16 +143,10 @@ body{
   height: 100%;
 }
 
-button{
-  background-color: transparent; 
-  border: none;
-  cursor: pointer; 
-  font-size: 24px;
- 
-} 
 
-.icon-coracao.active {
+#btn-like.active {
   color: red;
+
  /*  transition: color 0.1s ease, color 0.3s ease; */
  
 }

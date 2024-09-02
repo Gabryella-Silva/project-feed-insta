@@ -5,118 +5,83 @@ import { faker } from "@faker-js/faker"; // serve para importar dados fakes
 class Post{
     private _id:string
     private _userName:string; //atributo privado
-    private _descricao:string;
-    private _dataPostagem:Date;
-    private _numeroCurtidas:number;
-    private _seguirUsuario:boolean;
-    private _enviarPost:boolean;
-    private _salvarPost:boolean;
-    private _comentarPost:string
+    private _avatarUrl:string;
+    private _imageUrl: string;
+    private _isLiked: boolean
+    private _descripiton:string;
+    private _CreatedAt:Date;
+    private _numberOfLikes:number;
+   
     
-    constructor(userName:string,  descricao:string, seguirUsuario:boolean, enviarPost:boolean, salvarPost:boolean, comentarPost:string ){ // usado para inicializar as propriedades do objeto
-        this._userName = userName.toLocaleUpperCase() // Permite acessar, chamar e modificar as propriedades do objeto,
-        this._descricao = descricao;
-        this._dataPostagem = new Date;
-        this._numeroCurtidas = 0;
-        this._seguirUsuario = seguirUsuario;
-        this._enviarPost = enviarPost;
-        this._salvarPost = salvarPost;
-        this._comentarPost = comentarPost;
+    constructor(userName:string,  avatarUrl:string, imageUrl:string, description:string){ // usado para inicializar as propriedades do objeto
         this._id = randomUUID();
+        this._userName = userName.toLocaleUpperCase() // Permite acessar, chamar e modificar as propriedades do objeto,
+        this._avatarUrl = avatarUrl;
+         this._imageUrl = imageUrl;
+         this._isLiked = false
+        this._descripiton = description;
+        this._CreatedAt = new Date;
+        this._numberOfLikes = 0;
         
     }
+
+    like(){
+        this._isLiked = !this._isLiked;
+
+        //incrementa o numero de likes
+        if(this._isLiked){
+            this._numberOfLikes += 1;
+
+            //descrementa o número de likes
+        }else{
+            this._numberOfLikes -= 1;
+        }
+    }
     
-    get id(){
+/*     get id(){
         return this._id;
     }
     get userName(){ //usado para ter acesso ao atributo privado userName
         return this._userName.toLocaleUpperCase();
     }
   
+    get avatarUrl(){
+        return this._avatarUrl;
+    }
+    get imageUrl(){
+        return this._imageUrl;
+    }
 
-    get descricao(){
-        return this._descricao; //usado para ter acesso ao atributo privado descricao
+    get description(){
+        return this._descripiton; //usado para ter acesso ao atributo privado descricao
     }
     
-    get dataPostagem(){
-        return this._dataPostagem; //usado para ter acesso ao atributo privado dataPostagem
+    get createdAt(){
+        return this._CreatedAt; //usado para ter acesso ao atributo privado dataPostagem
     }
 
-    get numeroCurtida(){
-        return this._numeroCurtidas;
-    }
+    get numberOfLikes(){
+        return this._numberOfLikes;
+    } */
 
-    get seguirUsuario():boolean{
-        return this._seguirUsuario;
-    }
-    get enviarPost(){
-        return this._enviarPost;
-    }
-    
-    get salvarPost(){
-        return this._salvarPost;
-    }
+}
 
-    get comentarPost(){
-        return this._comentarPost;
-    }
+const posts: Post[] = [];
+ 
+for (let i = 0; i < 15; i++ ){
+    const userName = faker.person.firstName();
+    const avatarUrl = faker.image.avatar();
+    const imageUrl = faker.image.urlLoremFlickr();
+    const description = faker.lorem.word();
 
-    set comentarPost(comentarPost:string){
-        this._comentarPost = comentarPost;  //usado para mudar o atributo privado
-    }
+    const post = new Post(userName, avatarUrl, imageUrl, description);
 
-
-    
-    incrementarCurtida(){
-        this._numeroCurtidas +=1 //ou ++; //metodo para incrementar o numero de curtidas
-    
-    }
-
+    posts.push(post)
     
 }
 
-// Função para criar e exibir posts no HTML
-function exibirPosts(){
+posts[0].like();
+posts[0].like();
+console.log(posts[0])
 
-    const postContainer = document.getElementById('posts');
-
-    
-    for (let i = 0; i < 15; i++ ){
-        const userName = faker.person.firstName();
-        const descricao = faker.lorem.word();
-        
-        const post = new Post(userName, descricao, true ,true, true, "linda vista");
-        
-        
-        post.incrementarCurtida() // Incrementa as curtidas
-
-     // Criando os elementos HTML para exibir o post
-    const postElement = document.createElement('div');
-    postElement.className = 'post';
-
-    const userNameElement = document.createElement('h2');
-    userNameElement.textContent = `Usuário: ${post.userName}`;
-
-    const descricaoElement = document.createElement('p');
-    descricaoElement.textContent = `Descrição: ${post.descricao}`;
-
-    const curtidasElement = document.createElement('p');
-    curtidasElement.textContent = `Curtidas: ${post.numeroCurtida}`;
-
-    const dataElement = document.createElement('p');
-    dataElement.textContent = `Data da Postagem: ${post.dataPostagem.toLocaleDateString()}`
-
-    // Adicionando os elementos ao div do post
-    postElement.appendChild(userNameElement);
-    postElement.appendChild(descricaoElement);
-    postElement.appendChild(curtidasElement);
-    postElement.appendChild(dataElement);
-
-    // Adicionando o post ao container principal
-    postContainer.appendChild(postElement);
-
-    }
-}
-
-exibirPosts()
 
