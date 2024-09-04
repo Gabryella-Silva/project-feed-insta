@@ -1,27 +1,25 @@
-import { randomUUID } from "node:crypto"; //serve para importaar id
+//import { randomUUID } from "node:crypto"; //serve para importaar id
+import {v4 as randomUUID} from "uuid"
 import { faker } from "@faker-js/faker"; // serve para importar dados fakes
 
 
 class Post{
-    private _id:string
-    private _userName:string; //atributo privado
+    private _id:string = randomUUID();
+    private _userName:string;  //atributo privado
     private _avatarUrl:string;
     private _imageUrl: string;
-    private _isLiked: boolean
+    private _isLiked: boolean = false;
     private _descripiton:string;
-    private _CreatedAt:Date;
-    private _numberOfLikes:number;
+    private _CreatedAt:Date = new Date;
+    private _numberOfLikes:number = 0
    
     
     constructor(userName:string,  avatarUrl:string, imageUrl:string, description:string){ // usado para inicializar as propriedades do objeto
-        this._id = randomUUID();
+
         this._userName = userName.toLocaleUpperCase() // Permite acessar, chamar e modificar as propriedades do objeto,
         this._avatarUrl = avatarUrl;
          this._imageUrl = imageUrl;
-         this._isLiked = false
         this._descripiton = description;
-        this._CreatedAt = new Date;
-        this._numberOfLikes = 0;
         
     }
 
@@ -37,32 +35,18 @@ class Post{
             this._numberOfLikes -= 1;
         }
     }
-    
-/*     get id(){
-        return this._id;
-    }
-    get userName(){ //usado para ter acesso ao atributo privado userName
-        return this._userName.toLocaleUpperCase();
-    }
-  
-    get avatarUrl(){
-        return this._avatarUrl;
-    }
-    get imageUrl(){
-        return this._imageUrl;
-    }
 
-    get description(){
-        return this._descripiton; //usado para ter acesso ao atributo privado descricao
-    }
-    
-    get createdAt(){
-        return this._CreatedAt; //usado para ter acesso ao atributo privado dataPostagem
-    }
+    toHtml(){
+        const div = document.createElement("div")
+    div.innerHTML = `<div class = "post-container"> 
+                    <div class ="post-header">
+                    <div> </div>
+                    <span> ${this._userName} </span>
+    </div>             
+    </div>` // colocar com crase pq é um string
+    document.body.appendChild(div)
 
-    get numberOfLikes(){
-        return this._numberOfLikes;
-    } */
+    }
 
 }
 
@@ -77,6 +61,7 @@ for (let i = 0; i < 15; i++ ){
     const post = new Post(userName, avatarUrl, imageUrl, description);
 
     posts.push(post)
+    post.toHtml()
     
 }
 
@@ -85,3 +70,13 @@ posts[0].like();
 console.log(posts[0])
 
 
+function exibirPosts(){
+
+    const postElement = document.getElementById('post'); // Seleciona o elemento com o ID 'post'
+    postElement.textContent = "oioioi";
+    document.body.appendChild(postElement)
+}
+
+/* const div = document.createElement("div")
+div.innerHTML = "<b> oioi </b>"
+document.body.appendChild(div) */
