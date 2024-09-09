@@ -34,59 +34,80 @@ class Post{
         }else{
             this._numberOfLikes -= 1;
         }
+       const postContainer = document.getElementById(this._id)
+        
+        const btnLike =postContainer?.querySelector("#btn-like");
+    
+        if (!btnLike) return;
+        btnLike.innerHTML = String(this._isLiked)
     }
 
+    
+
     toHtml(){
-        const div = document.createElement("div")
-    div.innerHTML = `<div class = "post-container"> 
-                        <div class ="post-header">
-                        <div>  </div>
-                        <i class="fa-solid fa-user"></i>
-                        <span> ${this._userName} </span>
-                        </div> 
+       const postContainer = document.createElement("div");
+       postContainer.className = "post-container";
+       postContainer.id = this._id;
 
-                        <div class="post-image"> 
-                        <img src="${this._imageUrl}" alt="">
-                        </div> 
-                        
-                        <div>
+       const postHeader = `
+                <div class="post-header"> 
+               <div>  
+               <img src="${this._avatarUrl}" alt=""> 
+               </div>
 
-                        <div id="btn-like" onclick="like()">
-                            <i class="fa-regular fa-heart"  ></i>
-                        </div>
+               <span> ${this._userName}  </span>
+            </div>
+           `;
 
-                        <div >
-                            <i class="fa-regular fa-comment" ></i> 
-                        </div>
 
-                        <div>
-                            <i class="fa-regular fa-paper-plane"></i> 
-                        </div>
+        const postImage = `<div class="post-image"> 
+                <img  src=" ${this._imageUrl} " alt="">
+            </div>
+          
+        `;
 
-                        </div>
+        const postIcons = ` <div id="post" class="post-icons"> 
 
-                        <div>
-                            <i class="fa-regular fa-bookmark"></i>
-                        </div>
+                <div>
 
-                         </div>
+                    <div id="btn-like" onclick="like()">
+                         <i class="fa-regular fa-heart"  ></i>
+                    </div>
 
-                        <div class="post-likes">
+                    <div >
+                         <i class="fa-regular fa-comment" ></i> 
+                    </div>
 
-                            <i class="fa-solid fa-heart"></i>
-                            <span> 100 likes </span>
-                            </div>
+                    <div>
+                         <i class="fa-regular fa-paper-plane"></i> 
+                    </div>
 
-                            <div class="post-descrition"> 
-                                <p> ${this._descripiton} </p>
-                        </div>
- 
-                     </div>` // colocar com crase pq é um string
-    document.body.appendChild(div)
+                </div>
+
+                <div>
+                    <i class="fa-regular fa-bookmark"></i>
+                </div>
+
+            </div>`
+
+
+        postContainer.innerHTML = postHeader;
+        postContainer.innerHTML += postImage;
+        postContainer.innerHTML += postIcons;
+
+        const btnLike = postContainer.querySelector("#btn-like")
+        btnLike?.addEventListener("click" ,() => this.like());
+
+      
+        document.body.appendChild(postContainer);
+
+    
 
     }
 
 }
+
+
 
 const posts: Post[] = [];
  
@@ -100,6 +121,8 @@ for (let i = 0; i < 15; i++ ){
 
     posts.push(post)
     post.toHtml()
+
+    
     
 }
 
