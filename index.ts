@@ -39,11 +39,49 @@ class Post{
     toHtml(){
         const div = document.createElement("div")
     div.innerHTML = `<div class = "post-container"> 
-                    <div class ="post-header">
-                    <div> </div>
-                    <span> ${this._userName} </span>
-    </div>             
-    </div>` // colocar com crase pq é um string
+                        <div class ="post-header">
+                        <div>  </div>
+                        <i class="fa-solid fa-user"></i>
+                        <span> ${this._userName} </span>
+                        </div> 
+
+                        <div class="post-image"> 
+                        <img src="${this._imageUrl}" alt="">
+                        </div> 
+                        
+                        <div>
+
+                        <div id="btn-like" onclick="like()">
+                            <i class="fa-regular fa-heart"  ></i>
+                        </div>
+
+                        <div >
+                            <i class="fa-regular fa-comment" ></i> 
+                        </div>
+
+                        <div>
+                            <i class="fa-regular fa-paper-plane"></i> 
+                        </div>
+
+                        </div>
+
+                        <div>
+                            <i class="fa-regular fa-bookmark"></i>
+                        </div>
+
+                         </div>
+
+                        <div class="post-likes">
+
+                            <i class="fa-solid fa-heart"></i>
+                            <span> 100 likes </span>
+                            </div>
+
+                            <div class="post-descrition"> 
+                                <p> ${this._descripiton} </p>
+                        </div>
+ 
+                     </div>` // colocar com crase pq é um string
     document.body.appendChild(div)
 
     }
@@ -70,12 +108,7 @@ posts[0].like();
 console.log(posts[0])
 
 
-function exibirPosts(){
 
-    const postElement = document.getElementById('post'); // Seleciona o elemento com o ID 'post'
-    postElement.textContent = "oioioi";
-    document.body.appendChild(postElement)
-}
 
 /* const div = document.createElement("div")
 div.innerHTML = "<b> oioi </b>"
