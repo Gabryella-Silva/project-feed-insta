@@ -9,7 +9,7 @@ class Post{
     private _avatarUrl:string;
     private _imageUrl: string;
     private _isLiked: boolean = false;
-    private _descrition:string;
+    private _description:string;
     private _CreatedAt:Date = new Date;
     private _numberOfLikes:number = 0
    
@@ -19,30 +19,57 @@ class Post{
         this._userName = userName.toLocaleUpperCase() // Permite acessar, chamar e modificar as propriedades do objeto,
         this._avatarUrl = avatarUrl;
          this._imageUrl = imageUrl;
-        this._descrition = description;
+        this._description = description;
         
     }
 
     like(){
-        this._isLiked = !this._isLiked;
 
-        //incrementa o numero de likes
-        if(this._isLiked){
-            this._numberOfLikes += 1;
-
-            //descrementa o número de likes
-        }else{
-            this._numberOfLikes -= 1;
-        }
-       const postContainer = document.getElementById(this._id)
+        const postContainer = document.getElementById(this._id)
         
-        const btnLike =postContainer?.querySelector("#btn-like");
-    /* 
-        if (!btnLike) return;
-        btnLike.innerHTML = String(this._isLiked) */
-    }
+        
+        if(!postContainer) return
+        
+        this.updateLikeIcon( postContainer)
+        this.updateTextNumberOfLikes(postContainer)
 
+        this._isLiked= !this._isLiked;
+    }
     
+    private updateLikeIcon (postHTML: Element){
+
+            const btnLike = postHTML?.querySelector("#btn-like");
+            const icon = btnLike?.children[0]
+            if (!icon) return;
+            
+            //o toggle verifica e remove 
+            icon.classList.toggle('fa-solid');
+            icon.classList.toggle('liked');
+            icon.classList.toggle('fa-regular');
+            
+        }
+
+        private updateTextNumberOfLikes(postHTML: HTMLElement){
+            const postLikes = postHTML.querySelector(".post-likes");
+            const span = postLikes?.querySelector("span");
+            
+            if(!span) return;
+
+
+            if(this._isLiked){
+
+                this._numberOfLikes -=1;  
+            }
+            
+         
+            else{
+                this._numberOfLikes +=1;
+            }
+        
+            span.textContent = this._numberOfLikes.toString()
+
+        }
+        
 
     toHtml(){
        const postContainer = document.createElement("div");
@@ -93,11 +120,11 @@ class Post{
         const postLikes = `  <div class="post-likes">
 
             <i class="fa-solid fa-heart"></i>
-            <span> 100 likes </span>
+            <span> ${this._numberOfLikes} </span>
             </div>`
 
         const postDescrition = `<div class="post-descrition"> 
-                                    <p> ${this._descrition} </p>
+                                    <p> ${this._description} </p>
                                 </div>`
             
         
@@ -111,20 +138,6 @@ class Post{
 
         const btnLike = postContainer.querySelector("#btn-like")
         btnLike?.addEventListener("click" ,() => this.like());
-
-        if (btnLike) {
-            btnLike.classList.remove('fa-regular');
-            btnLike.classList.add('fa-solid');
-            btnLike.classList.add('active');
-            
-    
-            //remove o coração preenchido e coloca o vazio
-        } else {
-            btnLike.classList.remove('fa-solid');
-            btnLike.classList.add('fa-regular'); 
-            btnLike.classList.remove('active');
-        }
-
       
         document.body.appendChild(postContainer);
 
@@ -140,11 +153,11 @@ const posts: Post[] = [];
  
 for (let i = 0; i < 15; i++ ){
     const userName = faker.person.firstName();
-    const avatarUrl = faker.image.avatar();
+    const avatarUrl = faker.image.avatarGitHub();
     const imageUrl = faker.image.urlLoremFlickr();
-    const descrition = faker.lorem.paragraph();
+    const description = faker.lorem.paragraph();
 
-    const post = new Post(userName, avatarUrl, imageUrl, descrition);
+    const post = new Post(userName, avatarUrl, imageUrl, description);
 
     posts.push(post)
     post.toHtml()
@@ -153,10 +166,7 @@ for (let i = 0; i < 15; i++ ){
     
 }
 
-posts[0].like();
-posts[0].like();
 
-console.log(posts[0])
 
 
 
