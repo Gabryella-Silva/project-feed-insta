@@ -108,6 +108,9 @@ class Post{
             // Cria um novo item de comentário
             const newComment = document.createElement("li");
             newComment.textContent = `${this._userName}: ${commentInput.value}`;
+
+            const criarFooter = document.createElement("footer");
+            
     
             // Adiciona o novo comentário à lista
             commentsList.appendChild(newComment);
@@ -177,9 +180,6 @@ class Post{
                         <button id="btn-add-comment">Postar</button>
                     </div>
                     
-                    <div>
-                        <ul id="comments-list"></ul>
-                    </div>
                     
                     <div>
                          <i class="fa-regular fa-paper-plane" ></i> 
