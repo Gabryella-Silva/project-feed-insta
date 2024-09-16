@@ -31,19 +31,28 @@
                     <div id="btn-like" onclick="like()">
                          <i class="fa-regular fa-heart liked "  ></i>
                     </div>
-
-                    <div >
-                         <i class="fa-regular fa-comment" ></i> 
+                
+                    <div id="btn-comment">
+                        <i class="fa-regular fa-comment"></i>
                     </div>
 
+                    <div id="comment-box" style="display: none;">
+                        <input type="text" id="comment-input" placeholder="Adicione um comentário...">
+                        <button id="btn-add-comment">Postar</button>
+                    </div>
+                    
                     <div>
-                         <i class="fa-regular fa-paper-plane"></i> 
+                        <ul id="comments-list"></ul>
                     </div>
+                        
+                        <div>
+                            <i class="fa-regular fa-paper-plane" ></i> 
+                        </div>
 
                 </div>
 
-                <div>
-                    <i class="fa-regular fa-bookmark"></i>
+                <div id="btn-save" >
+                    <i class="fa-regular fa-bookmark saved" ></i>
                 </div>
 
             </div>

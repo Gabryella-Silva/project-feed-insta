@@ -166,10 +166,16 @@ body{
 
 .liked {
   color: red;
- /* falta o animation  */
+  animation:pulse 0.4s;
 }
 
-@keyframes scale-up-center {
+/* .saved{
+color: black;
+animation:pulse 0.4s;
+
+} */
+
+@keyframes pulse {
 	0% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
@@ -184,4 +190,43 @@ body{
     -webkit-transform: scale(1);
 		transform: scale(1);
 	}
+}
+
+#btn-comment {
+  display: inline-block;
+}
+
+#comment-box {
+  margin-top: 10px;
+  display: flex;
+  /* gap: 10px; */
+}
+
+#comment-input {
+  flex: 1;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+#btn-add-comment {
+  padding: 5px;
+  background-color: #3897f0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#btn-add-comment:hover {
+  background-color: #2878c4;
+}
+
+#comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.commented {
+  display: flex;
 }
