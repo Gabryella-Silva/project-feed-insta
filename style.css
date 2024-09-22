@@ -207,6 +207,7 @@ animation:pulse 0.4s;
   padding: 5px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  margin-bottom: 10px;
 }
 
 #btn-add-comment {

@@ -215,15 +215,15 @@ class Post{
         //btnSave?.addEventListener("click", this.save.bind(this));
 
         const btnComment = postContainer.querySelector("#btn-comment");
-        const commentBox = postContainer.querySelector("#comment-box") as HTMLElement;
-        const btnAddComment = postContainer.querySelector("#btn-add-comment");
+        btnComment?.addEventListener("click", () => this.comment()) //{
+        
+       const btnAddComment = postContainer.querySelector("#btn-add-comment");
+       btnAddComment?.addEventListener("click", () => this.addComment(postContainer));
 
-        btnComment?.addEventListener("click", () => {
-            commentBox.style.display = commentBox.style.display === "none" ? "flex" : "none";
-        });
-        // Adicione os listeners
+          //  commentBox.style.display = commentBox.style.display === "none" ? "flex" : "none";
+      //  });
+        
 
-        btnAddComment?.addEventListener("click", () => this.addComment(postContainer));
 
         document.body.appendChild(postContainer);
 
