@@ -15,13 +15,13 @@ class Post{
     private _comments:string[] 
    
     
-    constructor(userName:string,  avatarUrl:string, imageUrl:string, description:string, comments: string[]){ // usado para inicializar as propriedades do objeto
+    constructor(userName:string,  avatarUrl:string, imageUrl:string, description:string,){ // usado para inicializar as propriedades do objeto
 
         this._userName = userName.toLocaleUpperCase() // Permite acessar, chamar e modificar as propriedades do objeto,
         this._avatarUrl = avatarUrl;
         this._imageUrl = imageUrl;
         this._description = description;
-        this._comments = comments;
+        
         
         
     }
@@ -98,26 +98,30 @@ class Post{
     
         private addComment(postHTML: Element) {
             const commentInput = postHTML.querySelector("#comment-input") as HTMLInputElement;
-            const commentsList = postHTML.querySelector("#comments-list") as HTMLUListElement;
-    
-            if (!commentInput || !commentsList || commentInput.value.trim() === "") return;
-    
-         /*    // Adiciona o comentário ao array de comentários
-            this._comments.push(commentInput.value);
-    
-            // Cria um novo item de comentário
-            const newComment = document.createElement("li");
-            newComment.textContent = `${this._userName}: ${commentInput.value}`;
-
-            const criarFooter = document.createElement("footer");
-            
-    
-            // Adiciona o novo comentário à lista
-            commentsList.appendChild(newComment);
-    
+        
+            // Verifica se o campo de entrada não está vazio
+            if (!commentInput || commentInput.value.trim() === "") return;
+        
+            // Cria o novo comentário
+            const newComment = `${this._userName}: ${commentInput.value}`;
+        
+            // Cria um novo elemento de comentário
+            const commentItem = document.createElement("p");
+            commentItem.textContent = newComment;
+        
+            // Encontra o footer do post
+            const footer = postHTML.querySelector("#footer") as HTMLElement;
+        
+            if (footer) {
+                footer.appendChild(commentItem); // Adiciona o comentário ao footer
+                
+            }
+        
             // Limpa o campo de entrada
-            commentInput.value = ""; */
+            commentInput.value = ""; 
         }
+        
+        
         
         
         save(){
@@ -171,29 +175,23 @@ class Post{
                          <i class="fa-regular fa-heart"  ></i>
                     </div>
 
-                <div id="btn-comment">
-                        <i class="fa-regular fa-comment"></i>
-                    </div>
+                    <div id="btn-comment">
+                     <i class="fa-regular fa-comment"></i>
+                     </div>
 
-                    <div id="comment-box" style="display: none;">
-                        <input type="text" id="comment-input" placeholder="Adicione um comentário...">
-                        <button id="btn-add-comment">Postar</button>
-                    </div>
-                    
-                    
                     <div>
-                         <i class="fa-regular fa-paper-plane" ></i> 
+                    <i class="fa-regular fa-paper-plane" ></i> 
                     </div>
-
-                </div>
-
-                <div id="btn-save" >
+                    
+                    </div>
+                    
+                    <div id="btn-save" >
                     <i class="fa-regular fa-bookmark saved"></i>
-                </div>
-
-            </div>`
-
-        const postLikes = `  <div class="post-likes">
+                    </div>
+                    
+                    </div>`
+    
+    const postLikes = `  <div class="post-likes">
 
             <i class="fa-solid fa-heart"></i>
             <span> ${this._numberOfLikes} </span>
@@ -201,16 +199,25 @@ class Post{
 
         const postDescrition = `<div class="post-descrition"> 
                                     <p> ${this._description} </p>
-                                </div>`
-            
-        
+                                    </div>`
 
+        const postContinuacaoComentarios = `<div class="continuação-dos-comentarios">
 
-        postContainer.innerHTML = postHeader;
+                    <div id="comment-box" style="display: none;">
+                        <input type="text" id="comment-input" placeholder="Adicione um comentário...">
+                        <button id="btn-add-comment">Postar</button>
+                    </div>
+                    
+                    <div id="footer">
+                        <!-`                         
+                                
+
+        postContainer.innerHTML += postHeader;
         postContainer.innerHTML += postImage;
         postContainer.innerHTML += postIcons;
         postContainer.innerHTML += postLikes;
         postContainer.innerHTML += postDescrition;
+        postContainer.innerHTML += postContinuacaoComentarios;
 
         const btnLike = postContainer.querySelector("#btn-like")
         btnLike?.addEventListener("click" ,() => this.like());
@@ -221,8 +228,15 @@ class Post{
         //btnSave?.addEventListener("click", this.save.bind(this));
 
         const btnComment = postContainer.querySelector("#btn-comment");
-        btnComment?.addEventListener("click", () => this.comment());
+        const commentBox = postContainer.querySelector("#comment-box") as HTMLElement;
+        const btnAddComment = postContainer.querySelector("#btn-add-comment");
 
+        btnComment?.addEventListener("click", () => {
+            commentBox.style.display = commentBox.style.display === "none" ? "flex" : "none";
+        });
+        // Adicione os listeners
+
+        btnAddComment?.addEventListener("click", () => this.addComment(postContainer));
 
         document.body.appendChild(postContainer);
 
@@ -241,10 +255,9 @@ for (let i = 0; i < 15; i++ ){
     const avatarUrl = faker.image.avatarGitHub();
     const imageUrl = faker.image.urlLoremFlickr();
     const description = faker.lorem.paragraph();
-    const comments = []
     
 
-    const post = new Post(userName, avatarUrl, imageUrl, description, comments);
+    const post = new Post(userName, avatarUrl, imageUrl, description);
 
     posts.push(post)
     post.toHtml()

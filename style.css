@@ -97,7 +97,7 @@ body{
 .post-container{
  
   width: 400px;
-  height: 550px;
+  max-height: auto;
   margin: 20px;
   padding: 20px;
   display: flex;
@@ -197,9 +197,9 @@ animation:pulse 0.4s;
 }
 
 #comment-box {
-  margin-top: 10px;
   display: flex;
-  /* gap: 10px; */
+  margin-top: 5px;
+  
 }
 
 #comment-input {
@@ -216,17 +216,14 @@ animation:pulse 0.4s;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 #btn-add-comment:hover {
   background-color: #2878c4;
 }
 
-#comments-list {
-  list-style: none;
-  padding: 0;
-}
-
 .commented {
   display: flex;
 }
+
