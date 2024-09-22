@@ -11,8 +11,7 @@ class Post{
     private _isLiked: boolean = false;
     private _description:string;
     private _CreatedAt:Date = new Date;
-    private _numberOfLikes:number = 0;
-    private _comments:string[] 
+    private _numberOfLikes:number = 0; 
    
     
     constructor(userName:string,  avatarUrl:string, imageUrl:string, description:string,){ // usado para inicializar as propriedades do objeto
@@ -21,9 +20,6 @@ class Post{
         this._avatarUrl = avatarUrl;
         this._imageUrl = imageUrl;
         this._description = description;
-        
-        
-        
     }
 
     like(){
@@ -39,9 +35,6 @@ class Post{
         this._isLiked= !this._isLiked;
     }
 
-    
-    
-    
     
     private updateLikeIcon (postHTML: Element){
         
@@ -68,15 +61,12 @@ class Post{
                 this._numberOfLikes -=1;  
             }
             
-            
             else{
                 this._numberOfLikes +=1;
             }
             
             span.textContent = this._numberOfLikes.toString()
-            
         }
-        
         
         comment(){
             const postContainer = document.getElementById(this._id)
@@ -120,8 +110,6 @@ class Post{
             // Limpa o campo de entrada
             commentInput.value = ""; 
         }
-        
-        
         
         
         save(){
@@ -211,7 +199,6 @@ class Post{
                     <div id="footer">
                         <!-`                         
                                 
-
         postContainer.innerHTML += postHeader;
         postContainer.innerHTML += postImage;
         postContainer.innerHTML += postIcons;
@@ -240,12 +227,9 @@ class Post{
 
         document.body.appendChild(postContainer);
 
-    
-
     }
 
 }
-
 
 
 const posts: Post[] = [];
@@ -264,11 +248,3 @@ for (let i = 0; i < 15; i++ ){
   
 }
 
-
-
-
-
-
-/* const div = document.createElement("div")
-div.innerHTML = "<b> oioi </b>"
-document.body.appendChild(div) */
