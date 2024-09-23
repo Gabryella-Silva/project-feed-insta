@@ -3,7 +3,7 @@
 ## Descrição
 Este projeto é um protótipo de feed do Instagram feito com dados fictícios de forma dinâmica. A ideia é simular um feed de publicações no estilo do Instagram, proporcionando um ambiente de teste com dados gerados automaticamente.
 
-## Ferramentas 
+## Tecnologias 
 Foram utilizados `TypeScript` para montar o projeto,`Vite` para otimizar o
 desenvolvimento e a API `faker.js` para gerar dados fictícios de forma dinâmica.
 
